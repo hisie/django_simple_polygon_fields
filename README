@@ -1,1 +1,2 @@
-This project allos you to add 
+This project allows you to add an SvgField In your model, displaying in admin
+an SVG js editor.
