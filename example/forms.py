@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from models import SvgObject
+from models import PolygonObject
 from django import forms
 
-class SvgObjectForm(forms.ModelForm):
+class PolygonObjectForm(forms.ModelForm):
     class Meta:
-        model = SvgObject
+        model = PolygonObject

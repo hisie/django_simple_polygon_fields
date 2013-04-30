@@ -1,6 +1,6 @@
 from django.contrib import admin
-from models import SvgObject
+from models import PolygonObject
     
-class SvgObjectAdmin(admin.ModelAdmin):
+class PolygonObjectAdmin(admin.ModelAdmin):
     pass
-admin.site.register(SvgObject, SvgObjectAdmin)
+admin.site.register(PolygonObject, PolygonObjectAdmin)

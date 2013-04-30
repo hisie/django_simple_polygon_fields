@@ -1,11 +1,11 @@
 # Create your views here.
 
-from models import SvgObject
-from forms import SvgObjectForm
+from models import PolygonObject
+from forms import PolygonObjectForm
 from django.shortcuts import render
 
 def svg_object_form(request):
-    form = SvgObjectForm(request.POST)
+    form = PolygonObjectForm(request.POST)
     
     return render(request,
                   'example/form.html', 

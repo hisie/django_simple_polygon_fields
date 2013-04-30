@@ -1,4 +1,4 @@
-# Django settings for django_sgv_fields project.
+# Django settings for django_simple_polygon_fields project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/hisie/workspace-python/django_sgv_fields/sqlite.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/hisie/workspace-python/django_simple_polygon_fields/sqlite.db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -102,10 +102,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'django_sgv_fields.urls'
+ROOT_URLCONF = 'django_simple_polygon_fields.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'django_sgv_fields.wsgi.application'
+WSGI_APPLICATION = 'django_simple_polygon_fields.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -124,7 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'svg_fields',
+    'simple_polygon',
     'example',
 )
 

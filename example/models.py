@@ -1,7 +1,7 @@
 from django.db import models
-from svg_fields.fields import SVGField
+from simple_polygon.fields import SimplePolygonField
 
 # Create your models here.
-class SvgObject(models.Model):
+class PolygonObject(models.Model):
     name=models.TextField()
-    svg_data=SVGField(max_length=12)
+    svg_data=SimplePolygonField(max_length=12)

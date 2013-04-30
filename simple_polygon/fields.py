@@ -1,24 +1,24 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.forms.fields import Field
-from widgets import SVGWidget
+from widgets import SimplePolygonWidget
 
-class SVGField(models.Field):
+class SimplePolygonField(models.TextField):
 
     # Used so to_python() is called
     __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         self.dump_kwargs = kwargs.pop('dump_kwargs', {
-            #'cls': DjangoSVGEncoder,
+            #'cls': DjangoSimplePolygonEncoder,
             'separators': (',', ':')
         })
         self.load_kwargs = kwargs.pop('load_kwargs', {})
 
-        super(SVGField, self).__init__(*args, **kwargs)
+        super(SimplePolygonField, self).__init__(*args, **kwargs)
 
     def pre_init(self, value, obj):
-        """Convert a string value to SVG only if it needs to be deserialized.
+        """Convert a string value to SimplePolygon only if it needs to be deserialized.
         
         SubfieldBase meteaclass has been modified to call this method instead of
         to_python so that we can check the obj state and determine if it needs to be
@@ -27,9 +27,9 @@ class SVGField(models.Field):
         if obj._state.adding and obj.pk is not None:
             if isinstance(value, basestring):
                 try:
-                    return SVG.loads(value, **self.load_kwargs)
+                    return SimplePolygon.loads(value, **self.load_kwargs)
                 except ValueError:
-                    raise ValidationError(_("Enter valid SVG"))
+                    raise ValidationError(_("Enter valid SimplePolygon"))
 
         return value
 
@@ -39,10 +39,10 @@ class SVGField(models.Field):
         return value
 
     def get_db_prep_value(self, value, connection, prepared=False):
-        """Convert SVG object to a string"""
+        """Convert SimplePolygon object to a string"""
         if self.null and value is None:
             return None
-        #return SVG.dumps(value, **self.dump_kwargs)
+        #return SimplePolygon.dumps(value, **self.dump_kwargs)
         return value
 
     def value_to_string(self, obj):
@@ -50,27 +50,27 @@ class SVGField(models.Field):
         return self.get_db_prep_value(value, None)
 
     def value_from_object(self, obj):
-        value = super(SVGField, self).value_from_object(obj)
+        value = super(SimplePolygonField, self).value_from_object(obj)
         if self.null and value is None:
             return None
         return self.dumps_for_display(value)
 
-    """SVGField is a generic textfield that serializes/unserializes SVG objects"""
+    """SimplePolygonField is a generic textfield that serializes/unserializes SimplePolygon objects"""
     def dumps_for_display(self, value):
         kwargs = { "indent": 2 }
         kwargs.update(self.dump_kwargs)
-        #return SVG.dumps(value, **kwargs)
+        #return SimplePolygon.dumps(value, **kwargs)
         return value
 
     def formfield(self, **kwargs):
 
         if "form_class" not in kwargs:
-            kwargs["form_class"] = SVGFormField
+            kwargs["form_class"] = SimplePolygonFormField
 
-        field = super(SVGField, self).formfield(**kwargs)
+        field = super(SimplePolygonField, self).formfield(**kwargs)
 
         if not field.help_text:
-            field.help_text = "Enter a valid SVG"
+            field.help_text = "Enter a valid SimplePolygon"
 
         return field
 
@@ -91,30 +91,24 @@ class SVGField(models.Field):
                 return self.default()
             return copy.deepcopy(self.default)
         # If the field doesn't have a default, then we punt to models.Field.
-        return super(SVGField, self).get_default()
-
-    def db_type(self, connection):
-        if connection.vendor == 'postgresql' and connection.pg_version >= 90200:
-            return 'SVG'
-        else:
-            return super(SVGField, self).db_type(connection)
+        return super(SimplePolygonField, self).get_default()
     
-class SVGFormField(Field):
+class SimplePolygonFormField(Field):
     
     def __init__(self, config_name='default', *args, **kwargs):
-        kwargs.update({'widget': SVGWidget(config_name=config_name)})
-        super(SVGFormField, self).__init__(*args, **kwargs)
+        kwargs.update({'widget': SimplePolygonWidget()})
+        super(SimplePolygonFormField, self).__init__(*args, **kwargs)
     def clean(self, value):
 
         if not value and not self.required:
             return None
 
-        value = super(SVGFormField, self).clean(value)
+        value = super(SimplePolygonFormField, self).clean(value)
 
         if isinstance(value, basestring):
             try:
-                #Check SVG Format
+                #Check SimplePolygon Format
                 pass
             except ValueError:
-                raise ValidationError(_("Enter valid SVG"))
+                raise ValidationError(_("Enter valid SimplePolygon"))
         return value

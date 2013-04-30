@@ -7,14 +7,14 @@ README = open(os.path.join(os.path.dirname(__file__), 'README')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name = 'django-svg-fields',
+    name = 'django-simple-polygon-fields',
     version = '0.1',
-    packages = ['svg_fields'],
+    packages = ['simple_polygon_fields'],
     include_package_data = True,
     license = 'Apache License, Version 2.0', 
     description = 'SVG Fields integrated in django',
     long_description = README,
-    url = 'https://github.com/hisie/django_svg_fields',
+    url = 'https://github.com/hisie/django_simple_polygon_fields',
     author = 'hisie',
     author_email = 'dcebrian@serincas.com',
     classifiers = [
